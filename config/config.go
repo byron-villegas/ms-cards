@@ -39,7 +39,7 @@ func init() {
 	// Load environment variables from .env file
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
+		log.Printf("Warning: .env file not found, using default or system environment variables")
 	}
 
 	// Initialize the AppConfig struct
