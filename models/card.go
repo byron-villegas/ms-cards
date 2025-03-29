@@ -17,4 +17,5 @@ type Card struct {
 	Text                string `json:"text"`
 	AdditionalText      string `json:"additionalText"`
 	Artist              string `json:"artist"`
+	Count               int    `json:"count"`
 }
