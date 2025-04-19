@@ -12,6 +12,13 @@ type CardController struct{}
 var cardService = service.CardService{}
 
 func (ec *CardController) GetCards(c *gin.Context) {
+	saga := c.Query("saga")
+
+	if saga != "" {
+		cards := cardService.GetCardsBySaga(saga)
+		c.JSON(http.StatusOK, cards)
+		return
+	}
 
 	cards := cardService.GetCards()
 

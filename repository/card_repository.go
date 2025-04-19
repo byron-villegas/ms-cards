@@ -47,6 +47,35 @@ func (c CardRepository) GetCards() []models.Card {
 	return cards
 }
 
+func (c CardRepository) GetCardsBySaga(saga string) []models.Card {
+	cursor, err := mongoDatabase.Collection("cards").Find(context.TODO(), bson.D{{Key: "saga", Value: saga}})
+
+	if err != nil {
+		return []models.Card{}
+	}
+
+	// Map results
+	var bsonCards []bson.M
+	if err = cursor.All(context.TODO(), &bsonCards); err != nil {
+		return []models.Card{}
+	}
+
+	// Convert bson.M to models.Card
+	var cards []models.Card
+	for _, bsonCard := range bsonCards {
+		var card models.Card
+		bsonBytes, _ := bson.Marshal(bsonCard)
+		_ = bson.Unmarshal(bsonBytes, &card)
+		cards = append(cards, card)
+	}
+
+	if cards == nil {
+		return []models.Card{}
+	}
+
+	return cards
+}
+
 func (c CardRepository) GetCardByID(id string) models.Card {
 	var card models.Card
 
