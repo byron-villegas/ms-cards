@@ -47,8 +47,8 @@ func (c CardRepository) GetCards() []models.Card {
 	return cards
 }
 
-func (c CardRepository) GetCardsBySaga(saga string) []models.Card {
-	cursor, err := mongoDatabase.Collection("cards").Find(context.TODO(), bson.D{{Key: "saga", Value: saga}})
+func (c CardRepository) GetCardsByGame(game string) []models.Card {
+	cursor, err := mongoDatabase.Collection("cards").Find(context.TODO(), bson.D{{Key: "game", Value: game}})
 
 	if err != nil {
 		return []models.Card{}

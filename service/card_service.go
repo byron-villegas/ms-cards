@@ -16,29 +16,29 @@ func (c CardService) GetCards() []models.Card {
 	return cards
 }
 
-func (c CardService) GetCardsBySaga(saga string) []models.Card {
+func (c CardService) GetCardsByGame(game string) []models.Card {
 
-	if strings.Contains(strings.ToLower(saga), "digimon") {
-		saga = "Digimon"
+	if strings.Contains(strings.ToLower(game), "digimon") {
+		game = "Digimon"
 	}
 
-	if strings.Contains(strings.ToLower(saga), "pokemon") {
-		saga = "Pokemon"
+	if strings.Contains(strings.ToLower(game), "pokemon") {
+		game = "Pokemon"
 	}
 
-	if strings.Contains(strings.ToLower(saga), "magic") {
-		saga = "Magic The Gathering"
+	if strings.Contains(strings.ToLower(game), "magic") {
+		game = "Magic The Gathering"
 	}
 
-	if strings.Contains(strings.ToLower(saga), "yu-gi-oh") {
-		saga = "Yu-Gi-Oh"
+	if strings.Contains(strings.ToLower(game), "yu-gi-oh") {
+		game = "Yu-Gi-Oh"
 	}
 
-	if strings.Contains(strings.ToLower(saga), "mitos") {
-		saga = "Mitos y Leyendas"
+	if strings.Contains(strings.ToLower(game), "mitos") {
+		game = "Mitos y Leyendas"
 	}
 
-	cards := cardRepository.GetCardsBySaga(saga)
+	cards := cardRepository.GetCardsByGame(game)
 
 	return cards
 }

@@ -12,10 +12,10 @@ type CardController struct{}
 var cardService = service.CardService{}
 
 func (ec *CardController) GetCards(c *gin.Context) {
-	saga := c.Query("saga")
+	game := c.Query("game")
 
-	if saga != "" {
-		cards := cardService.GetCardsBySaga(saga)
+	if game != "" {
+		cards := cardService.GetCardsByGame(game)
 		c.JSON(http.StatusOK, cards)
 		return
 	}

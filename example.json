@@ -1,0 +1,39 @@
+{
+    "name": "Gandalf, White Rider",
+    "imageUrl": "https://media.wizards.com/2023/ltr/en_54166525b7.png",
+    "number": 290,
+    "game": "Magic The Gathering",
+    "type": "Legendary Creature — Avatar Wizard",
+    "description": "He has passed through the fire and the abyss, and the enemy shall fear him.",
+    "attributes": {
+        "element": "White",
+        "rarity": "Rare",
+        "color": "White",
+        "typeSpecific": null,
+        "manaCost": 3
+    },
+    "stats": {
+        "attack": 3,
+        "defense": 3,
+        "health": 3,
+        "power": 3
+    },
+    "abilities": [
+        {
+            "name": "Vigilance",
+            "description": "Whenever you cast a spell, creatures you control get +1/+0 until end of turn. Scry 1."
+        }
+    ],
+    "effects": [
+        {
+            "name": "Death",
+            "description": "When Gandalf dies, you may put it into its owner's library fifth from the top."
+        }
+    ],
+    "set": {
+        "name": "The Lord of the Rings: Tales of Middle Earth",
+        "releaseDate": "2023-02-21"
+    },
+    "artist": "Ekaterina Burmak",
+    "count": 1
+}
