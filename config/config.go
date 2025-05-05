@@ -2,18 +2,15 @@ package config
 
 import (
 	"context"
-	"time"
-
 	"fmt"
 	"log"
 	"os"
 	"runtime"
 	"strings"
+	"time"
 
 	"github.com/gin-gonic/gin"
-
 	"github.com/joho/godotenv"
-
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )

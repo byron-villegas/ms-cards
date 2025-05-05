@@ -2,8 +2,8 @@ package repository
 
 import (
 	"context"
-	"fe-cards/config"
-	"fe-cards/models"
+	"ms-cards/config"
+	"ms-cards/models"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"

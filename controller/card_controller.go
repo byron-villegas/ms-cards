@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"fe-cards/service"
+	"ms-cards/service"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

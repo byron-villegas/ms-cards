@@ -1,8 +1,8 @@
 package service
 
 import (
-	"fe-cards/models"
-	"fe-cards/repository"
+	"ms-cards/models"
+	"ms-cards/repository"
 	"strings"
 )
 

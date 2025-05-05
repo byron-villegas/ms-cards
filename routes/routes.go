@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"fe-cards/controller"
+	"ms-cards/controller"
 
 	"github.com/gin-gonic/gin"
 )

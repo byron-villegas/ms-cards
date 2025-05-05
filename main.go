@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fe-cards/config"
-	"fe-cards/routes"
+	"ms-cards/config"
+	"ms-cards/routes"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

@@ -1,4 +1,4 @@
-module fe-cards
+module ms-cards
 
 go 1.23.0
 
