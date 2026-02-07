@@ -39,7 +39,6 @@ func init() {
 		log.Printf("Warning: .env file not found, using default or system environment variables")
 	}
 
-	// Initialize the AppConfig struct
 	AppConfig = &Config{
 		ServerPath:        "/api",
 		ServerPort:        "8080",
@@ -50,7 +49,6 @@ func init() {
 		MongoPassword:     os.Getenv("MONGO_PASSWORD"),
 		MongoHost:         os.Getenv("MONGO_HOST"),
 		MongoDB:           os.Getenv("MONGO_DB"),
-		MongoURI:          fmt.Sprintf("mongodb+srv://%s:%s@%s/%s", os.Getenv("MONGO_USER"), os.Getenv("MONGO_PASSWORD"), os.Getenv("MONGO_HOST"), os.Getenv("MONGO_DB")),
 		CORSOrigin:        os.Getenv("CORS_ORIGIN"),
 		CORSHeaders:       "Content-Type",
 	}
