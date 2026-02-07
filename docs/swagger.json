@@ -1,0 +1,315 @@
+{
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Microservice for managing trading cards",
+        "title": "MS Cards API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api",
+    "paths": {
+        "/cards": {
+            "get": {
+                "description": "Get all cards, optionally filtered by game",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cards"
+                ],
+                "summary": "Get all cards",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Game name to filter cards",
+                        "name": "game",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Card"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cards/{id}": {
+            "get": {
+                "description": "Get a card by its ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cards"
+                ],
+                "summary": "Get a card by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Card ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Card"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Ability": {
+            "description": "Special ability or attack that a card can perform",
+            "type": "object",
+            "properties": {
+                "damage": {
+                    "description": "Base damage value",
+                    "type": "integer",
+                    "example": 30
+                },
+                "damageMultiplier": {
+                    "description": "Damage multiplier (e.g., 2x, 3x)",
+                    "type": "string",
+                    "example": "x"
+                },
+                "description": {
+                    "description": "Description of what the ability does",
+                    "type": "string",
+                    "example": "Flip a coin. If tails, Pokémon also does 10 damage to itself."
+                },
+                "name": {
+                    "description": "Name of the ability",
+                    "type": "string",
+                    "example": "Thunder Jolt"
+                }
+            }
+        },
+        "models.Attribute": {
+            "description": "Various attributes of a card, such as element, rarity, mana cost, color, and type-specific attributes",
+            "type": "object",
+            "properties": {
+                "color": {
+                    "description": "Color of the card (e.g., Red, Blue, Green)",
+                    "type": "string",
+                    "example": ""
+                },
+                "element": {
+                    "description": "Elemental type of the card (e.g., Fire, Water, Earth)",
+                    "type": "string",
+                    "example": ""
+                },
+                "manaCost": {
+                    "description": "Mana cost required to play the card",
+                    "type": "integer",
+                    "example": 0
+                },
+                "rarity": {
+                    "description": "Rarity level of the card (e.g., Common, Uncommon, Rare, Epic)",
+                    "type": "string",
+                    "example": "Basic"
+                },
+                "typeSpecific": {
+                    "description": "Type-specific attribute (e.g., Flying for creatures, Spell for spells)",
+                    "type": "string",
+                    "example": ""
+                }
+            }
+        },
+        "models.Card": {
+            "description": "Trading card with various attributes, stats, abilities, effects, and set information",
+            "type": "object",
+            "properties": {
+                "abilities": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Ability"
+                    }
+                },
+                "artist": {
+                    "type": "string",
+                    "example": "Mitsuhiro Arita"
+                },
+                "attributes": {
+                    "description": "Various attributes of the card",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.Attribute"
+                        }
+                    ]
+                },
+                "count": {
+                    "description": "Count of this card in the collection",
+                    "type": "integer",
+                    "example": 1
+                },
+                "description": {
+                    "description": "Description of the card",
+                    "type": "string",
+                    "example": "It has small electric sacs on both its cheeks. If threatened, it looses electric charges from the sacs."
+                },
+                "effects": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Effect"
+                    }
+                },
+                "game": {
+                    "description": "Game the card belongs to",
+                    "type": "string",
+                    "example": "Pokemon"
+                },
+                "id": {
+                    "description": "Unique identifier for the card",
+                    "type": "string",
+                    "example": "680d7ea3abc6e3839bd4adb5"
+                },
+                "imageUrl": {
+                    "description": "URL to the card's image",
+                    "type": "string",
+                    "example": "Pikachu-005-025.webp"
+                },
+                "name": {
+                    "description": "Name of the card",
+                    "type": "string",
+                    "example": "Pikachu"
+                },
+                "number": {
+                    "description": "Card number in the set",
+                    "type": "integer",
+                    "example": 5
+                },
+                "set": {
+                    "$ref": "#/definitions/models.Set"
+                },
+                "stats": {
+                    "$ref": "#/definitions/models.Stat"
+                },
+                "type": {
+                    "description": "Type of the card",
+                    "type": "string",
+                    "example": "Lightning"
+                }
+            }
+        },
+        "models.Effect": {
+            "description": "Special effect or status condition that a card can have",
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "Prevents the affected card from attacking during its next turn."
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Paralysis"
+                }
+            }
+        },
+        "models.Set": {
+            "description": "Set information of a card, including the set name and release year",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "Celebrations 25th Anniversary"
+                },
+                "releaseYear": {
+                    "type": "integer",
+                    "example": 2021
+                }
+            }
+        },
+        "models.Stat": {
+            "description": "Various stats of a card, such as attack, defense, health, power, weakness, resistance, and retreat cost",
+            "type": "object",
+            "properties": {
+                "attack": {
+                    "description": "Base attack value",
+                    "type": "integer",
+                    "example": 0
+                },
+                "defense": {
+                    "description": "Base defense value",
+                    "type": "integer",
+                    "example": 0
+                },
+                "health": {
+                    "description": "Base health value",
+                    "type": "integer",
+                    "example": 60
+                },
+                "power": {
+                    "description": "Base power value (for non-creature cards)",
+                    "type": "integer",
+                    "example": 0
+                },
+                "resistance": {
+                    "description": "Resistance value (reduced damage taken from certain types)",
+                    "type": "integer",
+                    "example": 0
+                },
+                "resistanceType": {
+                    "description": "Type of resistance (e.g., Fire, Water, Grass)",
+                    "type": "string",
+                    "example": "Water"
+                },
+                "retreatCost": {
+                    "description": "Cost to retreat the card from battle",
+                    "type": "integer",
+                    "example": 1
+                },
+                "weakness": {
+                    "description": "Weakness value (additional damage taken from certain types)",
+                    "type": "integer",
+                    "example": 0
+                },
+                "weaknessType": {
+                    "description": "Type of weakness (e.g., Fire, Water, Grass)",
+                    "type": "string",
+                    "example": "Rock"
+                }
+            }
+        }
+    }
+}

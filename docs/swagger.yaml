@@ -1,0 +1,232 @@
+basePath: /api
+definitions:
+  models.Ability:
+    description: Special ability or attack that a card can perform
+    properties:
+      damage:
+        description: Base damage value
+        example: 30
+        type: integer
+      damageMultiplier:
+        description: Damage multiplier (e.g., 2x, 3x)
+        example: x
+        type: string
+      description:
+        description: Description of what the ability does
+        example: Flip a coin. If tails, Pokémon also does 10 damage to itself.
+        type: string
+      name:
+        description: Name of the ability
+        example: Thunder Jolt
+        type: string
+    type: object
+  models.Attribute:
+    description: Various attributes of a card, such as element, rarity, mana cost,
+      color, and type-specific attributes
+    properties:
+      color:
+        description: Color of the card (e.g., Red, Blue, Green)
+        example: ""
+        type: string
+      element:
+        description: Elemental type of the card (e.g., Fire, Water, Earth)
+        example: ""
+        type: string
+      manaCost:
+        description: Mana cost required to play the card
+        example: 0
+        type: integer
+      rarity:
+        description: Rarity level of the card (e.g., Common, Uncommon, Rare, Epic)
+        example: Basic
+        type: string
+      typeSpecific:
+        description: Type-specific attribute (e.g., Flying for creatures, Spell for
+          spells)
+        example: ""
+        type: string
+    type: object
+  models.Card:
+    description: Trading card with various attributes, stats, abilities, effects,
+      and set information
+    properties:
+      abilities:
+        items:
+          $ref: '#/definitions/models.Ability'
+        type: array
+      artist:
+        example: Mitsuhiro Arita
+        type: string
+      attributes:
+        allOf:
+        - $ref: '#/definitions/models.Attribute'
+        description: Various attributes of the card
+      count:
+        description: Count of this card in the collection
+        example: 1
+        type: integer
+      description:
+        description: Description of the card
+        example: It has small electric sacs on both its cheeks. If threatened, it
+          looses electric charges from the sacs.
+        type: string
+      effects:
+        items:
+          $ref: '#/definitions/models.Effect'
+        type: array
+      game:
+        description: Game the card belongs to
+        example: Pokemon
+        type: string
+      id:
+        description: Unique identifier for the card
+        example: 680d7ea3abc6e3839bd4adb5
+        type: string
+      imageUrl:
+        description: URL to the card's image
+        example: Pikachu-005-025.webp
+        type: string
+      name:
+        description: Name of the card
+        example: Pikachu
+        type: string
+      number:
+        description: Card number in the set
+        example: 5
+        type: integer
+      set:
+        $ref: '#/definitions/models.Set'
+      stats:
+        $ref: '#/definitions/models.Stat'
+      type:
+        description: Type of the card
+        example: Lightning
+        type: string
+    type: object
+  models.Effect:
+    description: Special effect or status condition that a card can have
+    properties:
+      description:
+        example: Prevents the affected card from attacking during its next turn.
+        type: string
+      name:
+        example: Paralysis
+        type: string
+    type: object
+  models.Set:
+    description: Set information of a card, including the set name and release year
+    properties:
+      name:
+        example: Celebrations 25th Anniversary
+        type: string
+      releaseYear:
+        example: 2021
+        type: integer
+    type: object
+  models.Stat:
+    description: Various stats of a card, such as attack, defense, health, power,
+      weakness, resistance, and retreat cost
+    properties:
+      attack:
+        description: Base attack value
+        example: 0
+        type: integer
+      defense:
+        description: Base defense value
+        example: 0
+        type: integer
+      health:
+        description: Base health value
+        example: 60
+        type: integer
+      power:
+        description: Base power value (for non-creature cards)
+        example: 0
+        type: integer
+      resistance:
+        description: Resistance value (reduced damage taken from certain types)
+        example: 0
+        type: integer
+      resistanceType:
+        description: Type of resistance (e.g., Fire, Water, Grass)
+        example: Water
+        type: string
+      retreatCost:
+        description: Cost to retreat the card from battle
+        example: 1
+        type: integer
+      weakness:
+        description: Weakness value (additional damage taken from certain types)
+        example: 0
+        type: integer
+      weaknessType:
+        description: Type of weakness (e.g., Fire, Water, Grass)
+        example: Rock
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Microservice for managing trading cards
+  title: MS Cards API
+  version: "1.0"
+paths:
+  /cards:
+    get:
+      consumes:
+      - application/json
+      description: Get all cards, optionally filtered by game
+      parameters:
+      - description: Game name to filter cards
+        in: query
+        name: game
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Card'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all cards
+      tags:
+      - cards
+  /cards/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get a card by its ID
+      parameters:
+      - description: Card ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Card'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get a card by ID
+      tags:
+      - cards
+schemes:
+- http
+- https
+swagger: "2.0"
