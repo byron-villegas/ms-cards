@@ -1,6 +1,19 @@
 # ms-cards
 
-Microservice for my cards collection.
+Microservicio para mi coleccion de cartas
+
+## Tabla de Contenido
+
+- [Instalar paquetes](#instalar-paquetes)
+- [Ejecutar aplicacion](#ejecutar-aplicacion)
+- [Swagger](#swagger)
+  - [Instalacion](#instalacion)
+  - [Agregar Dependencias](#agregar-dependencias)
+  - [Documentar Aplicacion](#documentar-aplicacion)
+  - [Documentar Endpoints](#documentar-endpoints)
+  - [Documentar DTO/Models](#documentar-dtomodels)
+  - [Generar Archivo Swagger](#generar-archivo-swagger)
+  - [Configurar Swagger UI](#configurar-swagger-ui)
 
 ## Instalar paquetes
 Se debe ejecutar el siguiente comando
@@ -17,7 +30,7 @@ go run main.go
 ```
 
 ## Swagger
-### Instalación
+### Instalacion
 Debemos instalar swaggo/swag con el siguiente comando
 
 ```shell
